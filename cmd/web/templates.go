@@ -13,6 +13,7 @@ type templateData struct {
 	Snippet     models.Snippet
 	Snippets    []models.Snippet
 	Form        any
+	Flash       string
 }
 
 func humanDate(t time.Time) string {
@@ -34,10 +35,10 @@ func newTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		name := filepath.Base(page)
 
-        ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.tmpl.html")
-        if err != nil {
-            return nil, err
-        }
+		ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.tmpl.html")
+		if err != nil {
+			return nil, err
+		}
 
 		ts, err = ts.ParseGlob("./ui/html/partials/*.tmpl.html")
 		if err != nil {
